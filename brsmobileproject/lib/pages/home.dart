@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             height: 100,
-            color: Colors.blue,
+            color: Color.fromARGB(255, 90, 96, 102),
           ),
           ListTile(
             leading: const Icon(Icons.folder),
@@ -97,15 +97,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget show_bug_report_icon(){
-    return Image.asset('assets/images/bug_report_icon.png', width: 50, height: 50,);
+    return Image.asset('assets/images/bug_report_icon.png', width: 100, height: 100,);
   }
 
   Widget show_dev_detail(){
-    return Text("${dev_firstname} ${dev_lastname}", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'CSPraKas'),);
+    return Padding(
+      padding: const EdgeInsets.only(left:10),
+      child: Text("${dev_firstname} ${dev_lastname}", style: TextStyle(color: Colors.black, fontSize: 15, fontFamily: 'CSPraKas'),),
+    );
   }
 
   Widget show_dev_email(){
-    return Text("${dev_email}", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'CSPraKas'),);
+    return Padding(
+      padding: const EdgeInsets.only(left:10,top: 0,right: 0,bottom: 0),
+      child: Text("${dev_email}", style: TextStyle(color: Colors.black, fontSize: 10, fontFamily: 'CSPraKas'),),
+    );
   }
 
 }

@@ -26,7 +26,11 @@ class _LoginPageState extends State<LoginPage> {
   var db_password = ['12301', '12302', '12303'];
   var db_firstname = ['ไตรทศ ', 'ธนาทิพย์', 'นฤเดช'];
   var db_lastname = ['สิริปัจทรัพย์', 'รุ่งทิพย์', 'เจริญสกุล'];
-  var db_email = ['dev01@hotmail.com', 'dev02@hotmail.com', 'dev03@hotmail.com'];
+  var db_email = [
+    'dev01@hotmail.com',
+    'dev02@hotmail.com',
+    'dev03@hotmail.com'
+  ];
   // Test Data
 
   @override
@@ -34,148 +38,248 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/login_background_image.png"),
-          fit: BoxFit.cover,
+          image: DecorationImage(
+            image: AssetImage("assets/images/login_background_image.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Center(
-            child: ListView(
-              children: [
-                Container(height: 100, width: 100,),
+              child: ListView(
+            children: [
+              Container(
+                height: 30,
+                width: 100,
+              ),
 
-                // แสดงรูปภาพ BRS
-                SizedBox(height: 20,),
-                show_bug_report_image(),
+              // แสดงรูปภาพ BRS
+              SizedBox(
+                height: 20,
+              ),
+              show_bug_report_image(),
 
-                // แสดงข้อความ 'เข้าสู่ระบบ' 
-                SizedBox(height: 20,),
-                show_login_text(),
+              // แสดงข้อความ 'เข้าสู่ระบบ'
+              SizedBox(
+                height: 40,
+              ),
+              show_login_text(),
 
-                // แสดงกล่องกรอกข้อมูล 'ชื่อผู้ใช้งาน' 
-                SizedBox(height: 20,),
-                show_username_textfield(),
+              // แสดงกล่องกรอกข้อมูล 'ชื่อผู้ใช้งาน'
+              SizedBox(
+                height: 35,
+              ),
+              show_username_textfield(),
 
-                // แสดงกล่องกรอกข้อมูล 'รหัสผ่าน' 
-                SizedBox(height: 20,),
-                show_password_textfield(),
+              // แสดงกล่องกรอกข้อมูล 'รหัสผ่าน'
+              SizedBox(
+                height: 25,
+              ),
+              show_password_textfield(),
 
-                // แสดงข้อความ 'เข้าสู่ระบบไม่สําเร็จ' 
-                SizedBox(height: 20,),
-                show_login_failed(),
+              // แสดงข้อความ 'เข้าสู่ระบบไม่สําเร็จ'
+              SizedBox(
+                height: 15,
+              ),
+              show_login_failed(),
 
-                // แสดงปุ่ม 'เข้าสู่ระบบ'
-                SizedBox(height: 20,),
-                show_login_button(),
+              // แสดงปุ่ม 'เข้าสู่ระบบ'
+              SizedBox(
+                height: 15,
+              ),
+              show_login_button(),
 
-                Row(
-                  children: [
-                    // แสดงรูปภาพ Team5
-                    show_credit_image(),
-                
-                    // แสดงข้อความ Team5
-                    show_credit_text(),
-                  ],
-                )
-              ],
-            )),      
+              // แสดงรูปภาพ Team5
+              SizedBox(
+                height: 10,
+              ),
+              show_credit(),
+            ],
+          )),
         ),
       ),
     );
   }
 
-  Widget show_bug_report_image(){
-    return Image.asset('assets/images/bug_report_image.png', width: 50, height: 50,);
-  }
-
-  Widget show_login_text(){
-    return Text("เข้าสู่ระบบ", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'CSPraKas'),);
-  }
-
-  Widget show_username_textfield(){
-    return TextField(
-      controller: dev_username,
-      decoration: InputDecoration(
-        labelText: 'ชื่อผู้ใช้งาน', 
-        border: OutlineInputBorder()
-      ),
-    );
-  }
-  
-  Widget show_password_textfield(){
-    return TextField(
-      controller: dev_password,
-      obscureText: true,
-      enableSuggestions: false,
-      autocorrect: false,
-      decoration: InputDecoration(
-        labelText: 'รหัสผ่าน', 
-        border: OutlineInputBorder()
+  Widget show_bug_report_image() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 0),
+      child: Image.asset(
+        'assets/images/Bug_report_icon2.png',
+        width: 217,
+        height: 217,
       ),
     );
   }
 
-  Widget show_login_button(){
-    return TextButton(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+  Widget show_login_text() {
+    return Center(
+        child: Text(
+      "เข้าสู่ระบบ",
+      style: TextStyle(
+          color: Colors.black,
+          fontSize: 31,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'CSPraKas'),
+    ));
+  }
+
+  Widget show_username_textfield() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextField(
+        controller: dev_username,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(9),
+          hintText: '  ชื่อผู้ใช้งาน',
+          fillColor: Colors.white,
+          filled: true,
+          hintStyle: TextStyle(
+              color: Color.fromARGB(255, 199, 197, 197),
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'CSPraKas'),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide.none,
+          ),
+        ),
       ),
-      onPressed: () {
-        // การเข้าสู่ระบบ
-        var login_status = 'failed';
-        var count = 0; 
-        if(dev_username.text.isEmpty || dev_password.text.isEmpty){
-          // กรอกข้อมูลไม่ครบถ้วน
-          setState(() {
-            dev_password.text = '';
-            login_failed_message = 'กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน';
-          });
-        }else if(dev_username.text.isNotEmpty && dev_password.text.isNotEmpty){
-          // ตรวจสอบการเข้าสู่ระบบ
-          while(count<db_username.length){
-            if((dev_username.text == db_username[count]) && (dev_password.text == db_password[count])){
-              // success
-              login_status = 'success';
-              break;
-            }else if((dev_username.text != db_username[count]) || (dev_password.text != db_password[count])){
-              // failed
-              count++;
-            }
-          }
-                  
-          // เข้าสู่ระบบไม่สําเร็จ
-          if(login_status == 'failed'){
+    );
+  }
+
+  Widget show_password_textfield() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextField(
+        controller: dev_password,
+        obscureText: true,
+        enableSuggestions: false,
+        autocorrect: false,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(9),
+            hintText: '  รหัสผ่าน',
+            fillColor: Colors.white,
+            filled: true,
+            hintStyle: TextStyle(
+                color: Color.fromARGB(255, 199, 197, 197),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'CSPraKas'),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide.none,
+            )),
+      ),
+    );
+  }
+
+  Widget show_login_button() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextButton(
+        onPressed: () {
+          // การเข้าสู่ระบบ
+          var login_status = 'failed';
+          var count = 0;
+          if (dev_username.text.isEmpty || dev_password.text.isEmpty) {
+            // กรอกข้อมูลไม่ครบถ้วน
+
             setState(() {
               dev_password.text = '';
-              login_failed_message = 'ชื่อผู้ใช้งานหริอรหัสผ่านไม่ถูกต้อง';
+              login_failed_message =
+                  '  กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน  ';
             });
+          } else if (dev_username.text.isNotEmpty &&
+              dev_password.text.isNotEmpty) {
+            // ตรวจสอบการเข้าสู่ระบบ
+            while (count < db_username.length) {
+              if ((dev_username.text == db_username[count]) &&
+                  (dev_password.text == db_password[count])) {
+                // success
+                login_status = 'success';
+                break;
+              } else if ((dev_username.text != db_username[count]) ||
+                  (dev_password.text != db_password[count])) {
+                // failed
+                count++;
+              }
+            }
+
+            // เข้าสู่ระบบไม่สําเร็จ
+            if (login_status == 'failed') {
+              setState(() {
+                dev_password.text = '';
+                login_failed_message = '  ชื่อผู้ใช้งานหริอรหัสผ่านไม่ถูกต้อง  ';
+              });
+            }
+            // เข้าสู่ระบบสําเร็จ
+            else if (login_status == 'success') {
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => HomePage(
+                      db_firstname[count], db_lastname[count], db_email[count]),
+                ),
+              );
+            }
           }
-          // เข้าสู่ระบบสําเร็จ
-          else if(login_status == 'success'){ 
-            Navigator.pushReplacement<void, void>(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => HomePage(db_firstname[count], db_lastname[count], db_email[count]),
-              ),
-            );
-          }
-        }
-      },
-      child: Text('เข้าสู่ระบบ'),
+        },
+        child: Text('เข้าสู่ระบบ',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'CSPraKas')),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blue),
+            padding:
+                MaterialStateProperty.all(EdgeInsets.fromLTRB(50, 15, 50, 15)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: BorderSide.none))),
+      ),
     );
   }
 
-  Widget show_credit_image(){
-    return  Image.asset('assets/images/team5_image.jpg', width: 20, height: 20,);
+  Widget show_credit() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 138, top: 26),
+      child: Center(
+          child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/images/team5_image.jpg'),
+                radius: 17,
+              ),
+              // Image.asset('assets/images/team5_image.jpg', width: 30, height: 30,),
+              Text(
+                " BY TEAM 5",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'CSPraKas'),
+              )
+            ],
+          )
+        ],
+      )),
+    );
   }
 
-  Widget show_credit_text(){
-    return Text("BY TEAM 5", style: TextStyle(color: Colors.black, fontSize: 10, fontFamily: 'CSPraKas'),);
-  }
-  
-  Widget show_login_failed(){
-    return Text("${login_failed_message}", style: TextStyle(color: Colors.red, fontSize: 10, fontFamily: 'CSPraKas'),);
+  Widget show_login_failed() {
+    return Center(
+          child: Text(
+            "${login_failed_message}",
+            style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontSize: 17,
+              fontFamily: 'CSPraKas',
+              backgroundColor: Color.fromARGB(255, 158, 37, 37)),
+      ));
   }
 }
