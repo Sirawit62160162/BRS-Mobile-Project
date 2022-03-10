@@ -113,6 +113,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget show_login_text() {
+    // return  TextButton(
+    //   onPressed: check_user_login, 
+    //   style: ButtonStyle(
+    //     foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+    //   ),
+    //   child: Text('เข้าสู่ระบบ'),
+    // );
     return Center(
         child: Text(
       "เข้าสู่ระบบ",
@@ -282,4 +289,26 @@ class _LoginPageState extends State<LoginPage> {
               backgroundColor: Color.fromARGB(255, 158, 37, 37)),
       ));
   }
+
+  // // ติดต่อฐานข้อมูลสําหรับเข้าสู่ระบบ
+  // Future check_user_login() async {
+  //   String username = dev_username.text;
+  //   String password = dev_password.text;
+
+  //   if(username.isEmpty || password.isEmpty){
+  //     setState(() {
+  //       dev_password.text = '';
+  //       login_failed_message = 'กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน';
+  //     });
+  //   }else if(username.isNotEmpty && password.isNotEmpty){
+  //     // ร้องขอการเชื่อมต่อกับฐานข้อมูล (/loing_user_local.php, /login_user_server.php)
+  //     var url = Uri.https('https://informatics.buu.ac.th', '/team5/login_user_local.php');
+  //     var data = {'username': username, 'password': password};
+
+  //     // เชื่อมต่อกับฐานข้อมูล 
+  //     var response = await http.post(url, body: json.encode(data));
+  //     var result = json.decode(response.body);
+  //     print(result);
+  //   }
+  // }
 }

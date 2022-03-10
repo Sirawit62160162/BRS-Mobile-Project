@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class NoticePage extends StatefulWidget {
@@ -10,8 +12,22 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Hello"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('จัดการปัญหาแอปพลิเคชัน'),
+        actions: [
+          
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            SizedBox(height: 20),
+            Text('Hello'),
+          ],
+        ),
+      ),
     );
   }
 }
