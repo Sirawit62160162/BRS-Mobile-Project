@@ -13,6 +13,8 @@ class _LoginPageState extends State<LoginPage> {
   final dev_password = TextEditingController();
 
   var login_failed_message;
+  var focus_border_color = Color.fromARGB(255, 130, 214, 245);
+  var enabled_border_color = Color.fromARGB(255, 255, 255, 255);
 
   @override
   void initState() {
@@ -61,19 +63,19 @@ class _LoginPageState extends State<LoginPage> {
 
               // แสดงข้อความ 'เข้าสู่ระบบ'
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               show_login_text(),
 
               // แสดงกล่องกรอกข้อมูล 'ชื่อผู้ใช้งาน'
               SizedBox(
-                height: 35,
+                height: 0,
               ),
               show_username_textfield(),
 
               // แสดงกล่องกรอกข้อมูล 'รหัสผ่าน'
               SizedBox(
-                height: 25,
+                height: 10,
               ),
               show_password_textfield(),
 
@@ -85,13 +87,13 @@ class _LoginPageState extends State<LoginPage> {
 
               // แสดงปุ่ม 'เข้าสู่ระบบ'
               SizedBox(
-                height: 15,
+                height: 20,
               ),
               show_login_button(),
 
               // แสดงรูปภาพ Team5
               SizedBox(
-                height: 10,
+                height: 30,
               ),
               show_credit(),
             ],
@@ -133,12 +135,18 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget show_username_textfield() {
     return Padding(
-      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
       child: TextField(
         controller: dev_username,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(9),
-          hintText: '  ชื่อผู้ใช้งาน',
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: focus_border_color, width: 3.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: enabled_border_color, width: 3.0),
+          ),
+          contentPadding: EdgeInsets.all(8),
+          hintText: 'ชื่อผู้ใช้งาน',
           fillColor: Colors.white,
           filled: true,
           hintStyle: TextStyle(
@@ -151,21 +159,28 @@ class _LoginPageState extends State<LoginPage> {
             borderSide: BorderSide.none,
           ),
         ),
+        style: TextStyle(fontSize: 22), 
       ),
     );
   }
 
   Widget show_password_textfield() {
     return Padding(
-      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 10.0),
       child: TextField(
         controller: dev_password,
         obscureText: true,
         enableSuggestions: false,
         autocorrect: false,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(9),
-            hintText: '  รหัสผ่าน',
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: focus_border_color, width: 3.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: enabled_border_color, width: 3.0),
+            ),
+            contentPadding: EdgeInsets.all(8),
+            hintText: 'รหัสผ่าน',
             fillColor: Colors.white,
             filled: true,
             hintStyle: TextStyle(
@@ -176,7 +191,9 @@ class _LoginPageState extends State<LoginPage> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide.none,
-            )),
+            )
+        ),
+        style: TextStyle(fontSize: 22,), 
       ),
     );
   }
@@ -196,6 +213,8 @@ class _LoginPageState extends State<LoginPage> {
               dev_password.text = '';
               login_failed_message =
                   '  กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน  ';
+              focus_border_color = Color.fromARGB(255, 255, 93, 84);
+              enabled_border_color = Color.fromARGB(255, 255, 93, 84);
             });
           } else if (dev_username.text.isNotEmpty &&
               dev_password.text.isNotEmpty) {
@@ -217,7 +236,9 @@ class _LoginPageState extends State<LoginPage> {
             if (login_status == 'failed') {
               setState(() {
                 dev_password.text = '';
-                login_failed_message = '  ชื่อผู้ใช้งานหริอรหัสผ่านไม่ถูกต้อง  ';
+                login_failed_message = '  ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง  ';
+                focus_border_color = Color.fromARGB(255, 255, 93, 84);
+                enabled_border_color = Color.fromARGB(255, 255, 93, 84);
               });
             }
             // เข้าสู่ระบบสําเร็จ
@@ -284,9 +305,9 @@ class _LoginPageState extends State<LoginPage> {
             "${login_failed_message}",
             style: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255),
-              fontSize: 17,
+              fontSize: 20,
               fontFamily: 'CSPraKas',
-              backgroundColor: Color.fromARGB(255, 158, 37, 37)),
+              backgroundColor: Color.fromARGB(255, 255, 93, 84)),
       ));
   }
 

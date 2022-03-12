@@ -218,7 +218,16 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NoticePage(),
+                          builder: (context) => NoticePage(
+                            notice_list[index]['no_id'],
+                            notice_list[index]['no_topic'],
+                            notice_list[index]['no_description'],
+                            notice_list[index]['no_firstname'],
+                            notice_list[index]['no_lastname'],
+                            notice_list[index]['no_date_create'],
+                            notice_list[index]['no_app_name'],
+                            notice_list[index]['no_image'],
+                          ),
                         )
                       ).then((value) {
                         setState(() {
@@ -235,7 +244,16 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NoticePage(),
+                  builder: (context) => NoticePage(
+                    notice_list[index]['no_id'],
+                            notice_list[index]['no_topic'],
+                            notice_list[index]['no_description'],
+                            notice_list[index]['no_firstname'],
+                            notice_list[index]['no_lastname'],
+                            notice_list[index]['no_date_create'],
+                            notice_list[index]['no_app_name'],
+                            notice_list[index]['no_image'],
+                  ),
                 )
               ).then((value) {
                 setState(() {
