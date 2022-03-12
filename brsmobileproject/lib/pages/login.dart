@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Test Data
-  var db_username = ['1', 'dev02', 'dev03'];
-  var db_password = ['1', '12302', '12303'];
+  var db_username = ['dev01', 'dev02', 'dev03'];
+  var db_password = ['12301', '12302', '12303'];
   var db_firstname = ['ไตรทศ ', 'ธนาทิพย์', 'นฤเดช'];
   var db_lastname = ['สิริปัจทรัพย์', 'รุ่งทิพย์', 'เจริญสกุล'];
   var db_email = [
