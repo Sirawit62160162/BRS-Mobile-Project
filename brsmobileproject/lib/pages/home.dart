@@ -38,8 +38,16 @@ class _HomePageState extends State<HomePage> {
       initialIndex: 0,
       length: 0,
       child: Scaffold(
-        drawer: show_home_drawer(),
+        backgroundColor: Color.fromARGB(255, 180, 180, 180),
+        drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Color.fromARGB(255, 101, 107, 112), //desired color
+          ),
+          child: show_home_drawer(),
+        ),
         appBar: AppBar(
+          title: const Text('รายการปัญหาแอปพลิเคชัน' ,style: TextStyle(fontSize: 19,fontWeight: FontWeight.normal, fontFamily: 'CSPraKas',color: Colors.white)),
+          backgroundColor: Color.fromARGB(255, 74, 80, 87),
           actions: [
             IconButton(
               onPressed: () {
@@ -72,51 +80,65 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     // แสดงข้อมูลผู้พัฒนาแอปพลิเคชัน
-                    SizedBox(height: 20),
+                    SizedBox(height: 22),
                     show_dev_detail(),
                     // แสดงอีเมลผู้พัฒนาแอปพลิเคชัน
-                    SizedBox(height: 20),
+                    SizedBox(height: 5),
                     show_dev_email(),
                   ]
                 ),
               ],
             ),
-            height: 100,
-            color: Colors.blue,
+            height: 110,
+            color: Color.fromARGB(255, 90, 96, 102),
           ),
-          Container(
-            margin: EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: Color.fromARGB(255, 58, 78, 255),
-            ),
-            alignment: Alignment.center,
-            child: ListTile(
-              title: const Text('จัดการปัญหาแอปพลิเคชัน'),
-              onTap: () {
-                setState(() {
-                  notice_list = [];
-                  get_notice();
-                });
-                Navigator.of(context).pop();
-              },
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              // height: 40.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: Color.fromARGB(255, 59, 134, 255),
+              ),
+              child: ListTile(
+                title: const Text('จัดการปัญหาแอปพลิเคชัน', textAlign: TextAlign.center,style: TextStyle(fontSize: 22,fontWeight: FontWeight.normal, fontFamily: 'CSPraKas',color: Colors.white)),
+                onTap: () {
+                  setState(() {
+                    notice_list = [];
+                    get_notice();
+                  });
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ),
           Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child:  
-              TextButton(
-                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-                onPressed: () {
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => LoginPage(),
-                    ),
-                  );
-                }, 
-                child: Text("ออกจากระบบ"),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child:  
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 236, 82, 82)),
+                    padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(75, 11, 75, 11)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        side: BorderSide.none
+                      )
+                    )
+                  ),
+                  onPressed: () {
+                    Navigator.pushReplacement<void, void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => LoginPage(),
+                      ),
+                    );
+                  }, 
+                  child: Text("ออกจากระบบ" ,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold, fontFamily: 'CSPraKas',color: Colors.white)),
+                ),
               ),
             ),
           ),
@@ -130,11 +152,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget show_dev_detail(){
-    return Text("${dev_firstname} ${dev_lastname}", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'CSPraKas'),);
+    return Padding(
+      padding: const EdgeInsets.only(top: 8,right: 37),
+      child: Text("${dev_firstname} ${dev_lastname}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'CSPraKas'),),
+    );
   }
 
   Widget show_dev_email(){
-    return Text("${dev_email}", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'CSPraKas'),);
+    return Padding(
+      padding: const EdgeInsets.only(left:2),
+      child: Text("E-mail:${dev_email}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'CSPraKas'),),
+    );
   }
 
   Widget show_list_notice(){
@@ -142,7 +170,7 @@ class _HomePageState extends State<HomePage> {
       itemCount: notice_list.length,
       itemBuilder: (context, index) {
         return Card(
-          color: Color.fromARGB(255, 161, 140, 139),
+          color: Color.fromARGB(255, 255, 255, 255),
           child: ListTile(
             leading: ConstrainedBox(
               constraints: BoxConstraints(
@@ -153,33 +181,39 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Image.asset('assets/images/white_paper.png', fit: BoxFit.cover),
             ),
-            title: Text("${notice_list[index]['no_topic']}", style: TextStyle(fontWeight: FontWeight.bold) ,overflow: TextOverflow.ellipsis,),
-            subtitle: Text("${notice_list[index]['no_description']}", overflow: TextOverflow.ellipsis,),
+            title: Text("${notice_list[index]['no_topic']}", style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold, fontFamily: 'CSPraKas') ,overflow: TextOverflow.ellipsis,),
+            subtitle: Text("${notice_list[index]['no_description']}",style: TextStyle(fontSize: 16 , fontFamily: 'CSPraKas') , overflow: TextOverflow.ellipsis,),
              trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
+                  width: 40.0,
+                  height: 40.0,
                   margin: EdgeInsets.only(left: 5,),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Color.fromARGB(255, 110, 109, 109),
+                    color: Color.fromARGB(255, 230, 104, 104),
                   ),
                   alignment: Alignment.center,
                   child: IconButton(
                     icon: Icon(Icons.delete), 
+                    color: Colors.black,
                     onPressed: () {
                     }, 
                   ), 
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 15,),
+                  width: 40.0,
+                  height: 40.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Color.fromARGB(255, 110, 109, 109),
+                    color: Color.fromARGB(255, 101, 160, 255),
                   ),
                   alignment: Alignment.center,
                   child: IconButton(
                     icon: Icon(Icons.remove_red_eye_rounded), 
+                    color: Colors.black,
                     onPressed: () {
                       Navigator.push(
                         context,
