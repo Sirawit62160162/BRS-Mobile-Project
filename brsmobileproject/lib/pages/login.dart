@@ -326,7 +326,7 @@ class _LoginPageState extends State<LoginPage> {
     //   });
     // }else if(username.isNotEmpty && password.isNotEmpty){
       // ร้องขอการเชื่อมต่อกับฐานข้อมูล (/loing_user_local.php, /login_user_server.php)
-      var url = Uri.https('informatics.buu.ac.th', '/team5/login.php');
+      var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/login_user.php');
       // var data = {'username': username, 'password': password};
 
       // เชื่อมต่อกับฐานข้อมูล 
