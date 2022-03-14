@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   // const HomePage({ Key? key }) : super(key: key);
 
-  final db_firstname, db_lastname, db_email;
-  HomePage(this.db_firstname, this.db_lastname, this.db_email);
+  final mem_firstname, mem_lastname, mem_email;
+  HomePage(this.mem_firstname, this.mem_lastname, this.mem_email);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var dev_firstname; 
-  var dev_lastname;
-  var dev_email;
+  var mem_firstname; 
+  var mem_lastname;
+  var mem_email;
 
   List notice_list = [];
 
@@ -25,9 +25,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    dev_firstname = widget.db_firstname;
-    dev_lastname = widget.db_lastname;
-    dev_email = widget.db_email;
+    mem_firstname = widget.mem_firstname;
+    mem_lastname = widget.mem_lastname;
+    mem_email = widget.mem_email;
 
     get_notice();
   }
@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
           data: Theme.of(context).copyWith(
             canvasColor: Color.fromARGB(255, 101, 107, 112), //desired color
           ),
+          
           child: show_home_drawer(),
         ),
         appBar: AppBar(
@@ -73,23 +74,26 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: <Widget>[
           Container(
-            child: Row(
+            child: Column(
               children: [
                 // แสดงไอคอน Team5
                 show_bug_report_icon(),
-                Column(
-                  children: [
-                    // แสดงข้อมูลผู้พัฒนาแอปพลิเคชัน
-                    SizedBox(height: 22),
-                    show_dev_detail(),
-                    // แสดงอีเมลผู้พัฒนาแอปพลิเคชัน
-                    SizedBox(height: 5),
-                    show_dev_email(),
-                  ]
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    children: [
+                      // แสดงข้อมูลผู้พัฒนาแอปพลิเคชัน
+                      SizedBox(height: 0),
+                      show_dev_detail(),
+                      // แสดงอีเมลผู้พัฒนาแอปพลิเคชัน
+                      SizedBox(height: 5),
+                      show_dev_email(),
+                    ]
+                  ),
                 ),
               ],
             ),
-            height: 110,
+            height: 170,
             color: Color.fromARGB(255, 90, 96, 102),
           ),
           Padding(
@@ -148,20 +152,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget show_bug_report_icon(){
-    return Image.asset('assets/images/bug_report_icon.png', width: 100, height: 100,);
+    return Image.asset('assets/images/bug_report_icon.png', width: 100, height: 100);
   }
 
   Widget show_dev_detail(){
     return Padding(
-      padding: const EdgeInsets.only(top: 8,right: 37),
-      child: Text("${dev_firstname} ${dev_lastname}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'CSPraKas'),),
+      padding: const EdgeInsets.only(left:15,bottom:5),
+      child: Text("${mem_firstname} ${mem_lastname}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'CSPraKas'), overflow: TextOverflow.ellipsis),
     );
   }
 
   Widget show_dev_email(){
     return Padding(
-      padding: const EdgeInsets.only(left:2),
-      child: Text("E-mail:${dev_email}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'CSPraKas'),),
+      padding: const EdgeInsets.only(left:15,bottom:5),
+      child: Text("E-mail:${mem_email}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'CSPraKas'), overflow: TextOverflow.ellipsis),
     );
   }
 
