@@ -33,37 +33,41 @@ class _NoticePageState extends State<NoticePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('จัดการปัญหาแอปพลิเคชัน'),
+        title: Text('รายละเอียดปัญหาแอปพลิเคชัน' ,style: TextStyle(fontSize: 19,fontWeight: FontWeight.normal, fontFamily: 'CSPraKas',color: Colors.white)),
+        backgroundColor: Color.fromARGB(255, 74, 80, 87),
         actions: [
           
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            show_no_topic(),
-      
-            SizedBox(height: 10),
-            show_no_app_name(),
-      
-            SizedBox(height: 10),
-            show_no_name_create(),
-      
-            SizedBox(height: 10),
-            show_no_date_create(),
-      
-            SizedBox(height: 20),
-            new Divider(color: Color.fromARGB(255, 133, 133, 133),),
-      
-            SizedBox(height: 10),
-            show_no_description(),
+      body: Padding(
+        padding: const EdgeInsets.only(left:10 , right: 10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 4),
+              show_no_topic(),
+        
+              SizedBox(height: 4),
+              show_no_app_name(),
+        
+              SizedBox(height: 4),
+              show_no_name_create(),
+        
+              SizedBox(height: 4),
+              show_no_date_create(),
+        
+              SizedBox(height: 20),
+              new Divider(color: Color.fromARGB(255, 0, 0, 0),),
+        
+              SizedBox(height: 10),
+              show_no_description(),
 
-            SizedBox(height: 10),
-            if(no_image != "")(
-              show_no_image()
-            )
-          ],
+              SizedBox(height: 10),
+              if(no_image != "")(
+                show_no_image()
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -77,8 +81,8 @@ class _NoticePageState extends State<NoticePage> {
         padding: EdgeInsets.only(left: 5, top: 5, right: 5),
         child: Row(
           children: [
-            Text("หัวข้อปัญหา : ", style: TextStyle(fontWeight: FontWeight.bold),),
-            Text("${no_topic}"),
+            Text("หัวข้อปัญหา : ", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
+            Text("${no_topic}" , style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
           ],
         ), 
       ),
@@ -91,8 +95,8 @@ class _NoticePageState extends State<NoticePage> {
         padding: EdgeInsets.only(left: 5, top: 5, right: 5),
         child: Row(
           children: [
-            Text("ชื่อแอปพลิเคชัน : ", style: TextStyle(fontWeight: FontWeight.bold),),
-            Text("${no_app_name}"),
+            Text("ชื่อแอปพลิเคชัน : ", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
+            Text("${no_app_name}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
           ],
         ), 
       ),
@@ -105,8 +109,8 @@ class _NoticePageState extends State<NoticePage> {
         padding: EdgeInsets.only(left: 5, top: 5, right: 5),
         child: Row(
           children: [
-            Text("ชื่อผู้ส่ง : ", style: TextStyle(fontWeight: FontWeight.bold),),
-            Text("${no_firstname} ${no_lastname}"),
+            Text("ชื่อผู้ส่ง : ", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
+            Text("${no_firstname} ${no_lastname}" , style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
           ],
         ), 
       ),
@@ -119,8 +123,8 @@ class _NoticePageState extends State<NoticePage> {
         padding: EdgeInsets.only(left: 5, top: 5, right: 5),
         child: Row(
           children: [
-            Text("เวลาแจ้งปัญหา : ", style: TextStyle(fontWeight: FontWeight.bold),),
-            Text(change_date_time_format()),
+            Text("เวลาแจ้งปัญหา : ", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
+            Text(change_date_time_format()  , style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
           ],
         ), 
       ),
@@ -135,11 +139,11 @@ class _NoticePageState extends State<NoticePage> {
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: Text("รายละเอียดปัญหา", style: TextStyle(fontWeight: FontWeight.bold),),
+                child: Text("รายละเอียดปัญหา", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
                 
               ),
               SizedBox(height: 10,),
-              Text("${no_description}"),
+              Text("${no_description}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
             ],
           ),
       ), 
@@ -179,11 +183,10 @@ class _NoticePageState extends State<NoticePage> {
               heroTag: 'back',
               onPressed: () {print("accepted");},
               child: Text(
-                'รับดําเนินการ',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'รับดําเนินการ', style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 20),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(7),
               ),
             ),
           ),
@@ -197,11 +200,10 @@ class _NoticePageState extends State<NoticePage> {
               heroTag: 'next',
               onPressed: () {print("rejected");},
               child: Text(
-                'ไม่รับดําเนินการ',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                'ไม่รับดําเนินการ', style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 20),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(7),
               ),
             ),
           ),
@@ -210,29 +212,34 @@ class _NoticePageState extends State<NoticePage> {
   }
 
   Widget show_no_image(){
-    return Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Column(
-        children: [
-          Image.network(
-            no_image,
-            fit: BoxFit.fill,
-          ),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                color: Colors.red,
-                child: Text('รูปภาพ 1'),
+    return Padding(
+      padding: const EdgeInsets.only(bottom:80),
+      child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Column(
+          children: [
+            Image.network(
+              no_image,
+              fit: BoxFit.fill,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    child: Text('รูปภาพ 1'),
+                  ),
               ),
-          )
-        ],
+            )
+          ],
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        elevation: 5,
+        margin: EdgeInsets.all(10),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      margin: EdgeInsets.all(10),
     );
   }
 }

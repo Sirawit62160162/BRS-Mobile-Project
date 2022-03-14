@@ -1,5 +1,8 @@
 import 'package:brsmobileproject/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   // const LoginPage({ Key? key }) : super(key: key);
@@ -24,8 +27,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Test Data
-  var db_username = ['dev01', 'dev02', 'dev03'];
-  var db_password = ['12301', '12302', '12303'];
+  var db_username = ['1', 'dev02', 'dev03'];
+  var db_password = ['1', '12302', '12303'];
   var db_firstname = ['ไตรทศ ', 'ธนาทิพย์', 'นฤเดช'];
   var db_lastname = ['สิริปัจทรัพย์', 'รุ่งทิพย์', 'เจริญสกุล'];
   var db_email = [
@@ -202,57 +205,57 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
       child: TextButton(
-        onPressed: () {
-          // การเข้าสู่ระบบ
-          var login_status = 'failed';
-          var count = 0;
-          if (dev_username.text.isEmpty || dev_password.text.isEmpty) {
-            // กรอกข้อมูลไม่ครบถ้วน
+        onPressed: check_user_login,
+        //   // การเข้าสู่ระบบ
+        //   var login_status = 'failed';
+        //   var count = 0;
+        //   if (dev_username.text.isEmpty || dev_password.text.isEmpty) {
+        //     // กรอกข้อมูลไม่ครบถ้วน
 
-            setState(() {
-              dev_password.text = '';
-              login_failed_message =
-                  '  กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน  ';
-              focus_border_color = Color.fromARGB(255, 255, 93, 84);
-              enabled_border_color = Color.fromARGB(255, 255, 93, 84);
-            });
-          } else if (dev_username.text.isNotEmpty &&
-              dev_password.text.isNotEmpty) {
-            // ตรวจสอบการเข้าสู่ระบบ
-            while (count < db_username.length) {
-              if ((dev_username.text == db_username[count]) &&
-                  (dev_password.text == db_password[count])) {
-                // success
-                login_status = 'success';
-                break;
-              } else if ((dev_username.text != db_username[count]) ||
-                  (dev_password.text != db_password[count])) {
-                // failed
-                count++;
-              }
-            }
+        //     setState(() {
+        //       dev_password.text = '';
+        //       login_failed_message =
+        //           '  กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน  ';
+        //       focus_border_color = Color.fromARGB(255, 255, 93, 84);
+        //       enabled_border_color = Color.fromARGB(255, 255, 93, 84);
+        //     });
+        //   } else if (dev_username.text.isNotEmpty &&
+        //       dev_password.text.isNotEmpty) {
+        //     // ตรวจสอบการเข้าสู่ระบบ
+        //     while (count < db_username.length) {
+        //       if ((dev_username.text == db_username[count]) &&
+        //           (dev_password.text == db_password[count])) {
+        //         // success
+        //         login_status = 'success';
+        //         break;
+        //       } else if ((dev_username.text != db_username[count]) ||
+        //           (dev_password.text != db_password[count])) {
+        //         // failed
+        //         count++;
+        //       }
+        //     }
 
-            // เข้าสู่ระบบไม่สําเร็จ
-            if (login_status == 'failed') {
-              setState(() {
-                dev_password.text = '';
-                login_failed_message = '  ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง  ';
-                focus_border_color = Color.fromARGB(255, 255, 93, 84);
-                enabled_border_color = Color.fromARGB(255, 255, 93, 84);
-              });
-            }
-            // เข้าสู่ระบบสําเร็จ
-            else if (login_status == 'success') {
-              Navigator.pushReplacement<void, void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => HomePage(
-                      db_firstname[count], db_lastname[count], db_email[count]),
-                ),
-              );
-            }
-          }
-        },
+        //     // เข้าสู่ระบบไม่สําเร็จ
+        //     if (login_status == 'failed') {
+        //       setState(() {
+        //         dev_password.text = '';
+        //         login_failed_message = '  ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง  ';
+        //         focus_border_color = Color.fromARGB(255, 255, 93, 84);
+        //         enabled_border_color = Color.fromARGB(255, 255, 93, 84);
+        //       });
+        //     }
+        //     // เข้าสู่ระบบสําเร็จ
+        //     else if (login_status == 'success') {
+        //       Navigator.pushReplacement<void, void>(
+        //         context,
+        //         MaterialPageRoute<void>(
+        //           builder: (BuildContext context) => HomePage(
+        //               db_firstname[count], db_lastname[count], db_email[count]),
+        //         ),
+        //       );
+        //     }
+        //   }
+        // },
         child: Text('เข้าสู่ระบบ',
             style: TextStyle(
                 color: Colors.white,
@@ -311,25 +314,25 @@ class _LoginPageState extends State<LoginPage> {
       ));
   }
 
-  // // ติดต่อฐานข้อมูลสําหรับเข้าสู่ระบบ
-  // Future check_user_login() async {
-  //   String username = dev_username.text;
-  //   String password = dev_password.text;
+  // ติดต่อฐานข้อมูลสําหรับเข้าสู่ระบบ
+  Future check_user_login() async {
+    // String username = dev_username.text;
+    // String password = dev_password.text;
 
-  //   if(username.isEmpty || password.isEmpty){
-  //     setState(() {
-  //       dev_password.text = '';
-  //       login_failed_message = 'กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน';
-  //     });
-  //   }else if(username.isNotEmpty && password.isNotEmpty){
-  //     // ร้องขอการเชื่อมต่อกับฐานข้อมูล (/loing_user_local.php, /login_user_server.php)
-  //     var url = Uri.https('https://informatics.buu.ac.th', '/team5/login_user_local.php');
-  //     var data = {'username': username, 'password': password};
+    // if(username.isEmpty || password.isEmpty){
+    //   setState(() {
+    //     dev_password.text = '';
+    //     login_failed_message = 'กรุณากรอกชื่อผู้ใช้งานและรหัสผ่านให้ครบถ้วน';
+    //   });
+    // }else if(username.isNotEmpty && password.isNotEmpty){
+      // ร้องขอการเชื่อมต่อกับฐานข้อมูล (/loing_user_local.php, /login_user_server.php)
+      var url = Uri.https('informatics.buu.ac.th', '/team5/login.php');
+      // var data = {'username': username, 'password': password};
 
-  //     // เชื่อมต่อกับฐานข้อมูล 
-  //     var response = await http.post(url, body: json.encode(data));
-  //     var result = json.decode(response.body);
-  //     print(result);
-  //   }
+      // เชื่อมต่อกับฐานข้อมูล 
+      var response = await http.get(url);
+      var result = json.decode(response.body);
+      print(result);
+    }
   // }
 }

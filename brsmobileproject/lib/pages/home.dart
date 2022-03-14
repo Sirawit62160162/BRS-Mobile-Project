@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                 maxWidth: 64,
                 maxHeight: 64,
               ),
-              child: Image.asset('assets/images/white_paper.png', fit: BoxFit.cover),
+              child: Image.asset('assets/images/white_paper.jpeg', fit: BoxFit.cover),
             ),
             title: Text("${notice_list[index]['no_topic']}", style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold, fontFamily: 'CSPraKas') ,overflow: TextOverflow.ellipsis,),
             subtitle: Text("${notice_list[index]['no_description']}",style: TextStyle(fontSize: 16 , fontFamily: 'CSPraKas') , overflow: TextOverflow.ellipsis,),
