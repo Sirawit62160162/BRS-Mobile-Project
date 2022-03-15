@@ -1,32 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:brsmobileproject/pages/home.dart';
 
 class NoticePage extends StatefulWidget {
   // const NoticePage({ Key? key }) : super(key: key);
 
-  final no_id, no_topic, no_description, no_firstname, no_lastname, no_date_create, no_app_name, no_image;
-  NoticePage(this.no_id, this.no_topic, this.no_description, this.no_firstname, this.no_lastname, this.no_date_create, this.no_app_name, this.no_image);
+  final mem_id, no_id, no_topic, no_description, no_firstname, no_lastname, no_date_time, app_name;
+  NoticePage(this.mem_id, this.no_id, this.no_topic, this.no_description, this.no_firstname, this.no_lastname, this.no_date_time, this.app_name);
 
   @override
   State<NoticePage> createState() => _NoticePageState();
 }
 
 class _NoticePageState extends State<NoticePage> {
-  var no_id, no_topic, no_description, no_firstname, no_lastname, no_date_create, no_app_name, no_image;
+  var mem_id,no_id, no_topic, no_description, no_firstname, no_lastname, no_date_time, app_name;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    mem_id = widget.mem_id;
     no_id = widget.no_id;
     no_topic = widget.no_topic;
     no_description = widget.no_description;
     no_firstname = widget.no_firstname;
     no_lastname = widget.no_lastname;
-    no_date_create = widget.no_date_create;
-    no_app_name = widget.no_app_name;
-    no_image = widget.no_image;
+    no_date_time = widget.no_date_time;
+    app_name = widget.app_name;
   }
 
   @override
@@ -62,10 +63,10 @@ class _NoticePageState extends State<NoticePage> {
               SizedBox(height: 10),
               show_no_description(),
 
-              SizedBox(height: 10),
-              if(no_image != "")(
-                show_no_image()
-              )
+              // SizedBox(height: 10),
+              // if(no_image != "")(
+              //   show_no_image()
+              // )
             ],
           ),
         ),
@@ -96,7 +97,7 @@ class _NoticePageState extends State<NoticePage> {
         child: Row(
           children: [
             Text("ชื่อแอปพลิเคชัน : ", style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 18)),
-            Text("${no_app_name}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
+            Text("${app_name}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
           ],
         ), 
       ),
@@ -155,11 +156,11 @@ class _NoticePageState extends State<NoticePage> {
     String day, month, year, hour, minute;
     List month_name = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม",];
 
-    year = no_date_create.substring(0,4);
-    month = no_date_create.substring(5,7);
-    day = no_date_create.substring(8,10);
-    hour = no_date_create.substring(11,13);
-    minute = no_date_create.substring(14,16);
+    year = no_date_time.substring(0,4);
+    month = no_date_time.substring(5,7);
+    day = no_date_time.substring(8,10);
+    hour = no_date_time.substring(11,13);
+    minute = no_date_time.substring(14,16);
 
     String month_thai = month_name[int.parse(month)-1];
     String year_buddhist = (int.parse(year)+543).toString();
@@ -180,8 +181,9 @@ class _NoticePageState extends State<NoticePage> {
             bottom: 5,
             child: FloatingActionButton(
               backgroundColor: Colors.blue,
-              heroTag: 'back',
-              onPressed: () {print("accepted");},
+              heroTag: 'accepted',
+              onPressed: set_accepted_notice,
+              
               child: Text(
                 'รับดําเนินการ', style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 20),
               ),
@@ -197,8 +199,8 @@ class _NoticePageState extends State<NoticePage> {
             bottom: 5,
             child: FloatingActionButton(
               backgroundColor: Colors.red,
-              heroTag: 'next',
-              onPressed: () {print("rejected");},
+              heroTag: 'rejected',
+              onPressed: set_rejected_notice,
               child: Text(
                 'ไม่รับดําเนินการ', style: TextStyle(fontWeight: FontWeight.bold , fontFamily: 'CSPraKas',fontSize: 20),
               ),
@@ -219,19 +221,19 @@ class _NoticePageState extends State<NoticePage> {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Column(
           children: [
-            Image.network(
-              no_image,
-              fit: BoxFit.fill,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    child: Text('รูปภาพ 1'),
-                  ),
-              ),
-            )
+            // Image.network(
+            //   no_image,
+            //   fit: BoxFit.fill,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(10),
+            //   child: Align(
+            //       alignment: Alignment.centerLeft,
+            //       child: Container(
+            //         child: Text('รูปภาพ 1'),
+            //       ),
+            //   ),
+            // )
           ],
         ),
         shape: RoundedRectangleBorder(
@@ -242,4 +244,33 @@ class _NoticePageState extends State<NoticePage> {
       ),
     );
   }
+
+ Future set_accepted_notice() async {
+    // ร้องขอการเชื่อมต่อกับฐานข้อมูล
+    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/acc_notice.php');
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 2};
+    var response = await http.post(url, body: json.encode(data));
+    var result = json.decode(response.body);
+    print(result);
+    if(result == 'success'){
+      Navigator.pop(context);
+    }else if(result == 'failed'){
+      print('aum1');
+    }
+  }
+  
+  Future set_rejected_notice() async {
+    // ร้องขอการเชื่อมต่อกับฐานข้อมูล
+    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/rej_notice.php');
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3};
+    var response = await http.post(url, body: json.encode(data));
+    var result = json.decode(response.body);
+    print(result);
+    if(result == 'success'){
+      Navigator.pop(context);
+    }else if(result == 'failed'){
+    print('aum1');
+    }
+  }
+
 }

@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   // const HomePage({ Key? key }) : super(key: key);
 
-  final mem_firstname, mem_lastname, mem_email;
-  HomePage(this.mem_firstname, this.mem_lastname, this.mem_email);
+  final mem_id, mem_firstname, mem_lastname, mem_email;
+  HomePage(this.mem_id, this.mem_firstname, this.mem_lastname, this.mem_email);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  var mem_id;
   var mem_firstname; 
   var mem_lastname;
   var mem_email;
@@ -25,11 +26,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    mem_id = widget.mem_id;
     mem_firstname = widget.mem_firstname;
     mem_lastname = widget.mem_lastname;
     mem_email = widget.mem_email;
 
-    get_notice();
+    get_notice_list();
   }
 
   @override
@@ -54,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 setState(() {
                   notice_list = [];
-                  get_notice();
+                  get_notice_list();
                 });
               },
               icon: Icon(
@@ -109,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   setState(() {
                     notice_list = [];
-                    get_notice();
+                    get_notice_list();
                   });
                   Navigator.of(context).pop();
                 },
@@ -202,8 +204,7 @@ class _HomePageState extends State<HomePage> {
                   child: IconButton(
                     icon: Icon(Icons.delete), 
                     color: Colors.black,
-                    onPressed: () {
-                    }, 
+                    onPressed: () => set_delete_notice(notice_list[index]['no_id']),
                   ), 
                 ),
                 Container(
@@ -223,20 +224,20 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => NoticePage(
+                            notice_list[index]['mem_id'],
                             notice_list[index]['no_id'],
                             notice_list[index]['no_topic'],
                             notice_list[index]['no_description'],
                             notice_list[index]['no_firstname'],
                             notice_list[index]['no_lastname'],
-                            notice_list[index]['no_date_create'],
-                            notice_list[index]['no_app_name'],
-                            notice_list[index]['no_image'],
+                            notice_list[index]['no_date_time'],
+                            notice_list[index]['app_name']
                           ),
                         )
                       ).then((value) {
                         setState(() {
                           notice_list = [];
-                          get_notice();
+                          get_notice_list();
                         });
                       });
                     }, 
@@ -249,20 +250,20 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => NoticePage(
-                    notice_list[index]['no_id'],
+                            notice_list[index]['mem_id'],
+                            notice_list[index]['no_id'],
                             notice_list[index]['no_topic'],
                             notice_list[index]['no_description'],
                             notice_list[index]['no_firstname'],
                             notice_list[index]['no_lastname'],
-                            notice_list[index]['no_date_create'],
-                            notice_list[index]['no_app_name'],
-                            notice_list[index]['no_image'],
+                            notice_list[index]['no_date_time'],
+                            notice_list[index]['app_name']
                   ),
                 )
               ).then((value) {
                 setState(() {
                   notice_list = [];
-                  get_notice();
+                  get_notice_list();
                 });
               });
             },
@@ -272,13 +273,34 @@ class _HomePageState extends State<HomePage> {
   }
 
   // ดึงข้อมูล
-  Future get_notice() async {
-    var url = Uri.https(
-        'raw.githubusercontent.com', '/Sirawit62160162/BasicAPI/main/notice.json');
-    var response = await http.get(url);
+  Future get_notice_list() async {
+    String id = mem_id;
+
+    // ร้องขอการเชื่อมต่อกับฐานข้อมูล
+    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/get_notice.php');
+    var data = {'id': id,};
+    var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     setState(() {
       notice_list = result;
     });
+    // print(result);
+  }
+
+  Future set_delete_notice(var no_id) async {
+    // ร้องขอการเชื่อมต่อกับฐานข้อมูล
+    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/del_notice.php');
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3};
+    var response = await http.post(url, body: json.encode(data));
+    var result = json.decode(response.body);
+    print(result);
+    if(result == 'success'){
+      setState(() {
+        notice_list = [];
+        get_notice_list();
+      });
+    }else if(result == 'failed'){
+
+    }
   }
 }

@@ -286,7 +286,7 @@ class _LoginPageState extends State<LoginPage> {
           context,
           MaterialPageRoute<void>(
           builder: (BuildContext context) => HomePage(
-            result['mem_firstname'], result['mem_lastname'], result['mem_email']),
+            result['mem_id'],result['mem_firstname'], result['mem_lastname'], result['mem_email']),
           ),
         );
       }
