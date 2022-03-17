@@ -250,7 +250,7 @@ class _NoticePageState extends State<NoticePage> {
   Future set_accepted_notice() async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/acc_notice.php');
-    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 2};
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 2,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     if(result == 'success'){
@@ -263,7 +263,7 @@ class _NoticePageState extends State<NoticePage> {
   Future set_rejected_notice() async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/rej_notice.php');
-    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3};
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     if(result == 'success'){
@@ -276,7 +276,7 @@ class _NoticePageState extends State<NoticePage> {
   Future get_notice_image() async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/get_no_img.php');
-    var data = {'id': no_id};
+    var data = {'id': no_id,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     print(result);

@@ -268,7 +268,7 @@ class _LoginPageState extends State<LoginPage> {
     }else if(username.isNotEmpty && password.isNotEmpty){
       // ร้องขอการเชื่อมต่อกับฐานข้อมูล
       var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/login_user.php');
-      var data = {'username': username, 'password': password};
+      var data = {'username': username, 'password': password ,'tokens' : 'ZSmrxIODdQ'};
       var response = await http.post(url, body: json.encode(data));
       var result = json.decode(response.body);
       

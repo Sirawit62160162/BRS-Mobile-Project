@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage> {
 
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/get_notice.php');
-    var data = {'id': id,};
+    var data = {'id': id,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     setState(() {
@@ -290,7 +290,7 @@ class _HomePageState extends State<HomePage> {
   Future set_delete_notice(var no_id) async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/del_notice.php');
-    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3};
+    var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     print(result);
