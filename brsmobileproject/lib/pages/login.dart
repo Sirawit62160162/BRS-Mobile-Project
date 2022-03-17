@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // แสดงรูปภาพ Team5
               SizedBox(
-                height: 30,
+                height: 27,
               ),
               show_credit(),
             ],

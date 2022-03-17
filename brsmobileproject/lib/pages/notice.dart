@@ -15,7 +15,7 @@ class NoticePage extends StatefulWidget {
 
 class _NoticePageState extends State<NoticePage> {
   var mem_id,no_id, no_topic, no_description, no_firstname, no_lastname, no_date_time, app_name;
-
+  List notice_image = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -28,6 +28,7 @@ class _NoticePageState extends State<NoticePage> {
     no_lastname = widget.no_lastname;
     no_date_time = widget.no_date_time;
     app_name = widget.app_name;
+    get_notice_image();
   }
 
   @override
@@ -63,10 +64,10 @@ class _NoticePageState extends State<NoticePage> {
               SizedBox(height: 10),
               show_no_description(),
 
-              // SizedBox(height: 10),
-              // if(no_image != "")(
-              //   show_no_image()
-              // )
+              SizedBox(height: 10),
+        
+              show_no_image(),
+          
             ],
           ),
         ),
@@ -144,7 +145,10 @@ class _NoticePageState extends State<NoticePage> {
                 
               ),
               SizedBox(height: 10,),
-              Text("${no_description}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
+              Align(
+              alignment: Alignment.topLeft,
+              child: Text("${no_description}", style: TextStyle(fontFamily: 'CSPraKas',fontSize: 18)),
+              ),
             ],
           ),
       ), 
@@ -216,46 +220,43 @@ class _NoticePageState extends State<NoticePage> {
   Widget show_no_image(){
     return Padding(
       padding: const EdgeInsets.only(bottom:80),
-      child: Card(
-        semanticContainer: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Column(
-          children: [
-            // Image.network(
-            //   no_image,
-            //   fit: BoxFit.fill,
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(10),
-            //   child: Align(
-            //       alignment: Alignment.centerLeft,
-            //       child: Container(
-            //         child: Text('รูปภาพ 1'),
-            //       ),
-            //   ),
-            // )
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        elevation: 5,
-        margin: EdgeInsets.all(10),
+      child: ListView.builder(
+        physics: NeverScrollableScrollPhysics(),         
+        shrinkWrap: true,
+        itemCount: notice_image.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom:0),
+            child: Card(
+              semanticContainer: true,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Column(
+                children: [
+                  Image.network('https://prepro.informatics.buu.ac.th/team5/assets/Image/Notice_Image/${notice_image[index]['no_img_name']}', height: 160,width:150),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              elevation: 5,
+              margin: EdgeInsets.all(10),
+            ),
+          );
+        }
       ),
     );
   }
 
- Future set_accepted_notice() async {
+  Future set_accepted_notice() async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
     var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/acc_notice.php');
     var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 2};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
-    print(result);
     if(result == 'success'){
       Navigator.pop(context);
     }else if(result == 'failed'){
-      print('aum1');
+
     }
   }
   
@@ -265,11 +266,26 @@ class _NoticePageState extends State<NoticePage> {
     var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
-    print(result);
     if(result == 'success'){
       Navigator.pop(context);
     }else if(result == 'failed'){
-    print('aum1');
+    
+    }
+  }
+
+  Future get_notice_image() async {
+    // ร้องขอการเชื่อมต่อกับฐานข้อมูล
+    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/get_no_img.php');
+    var data = {'id': no_id};
+    var response = await http.post(url, body: json.encode(data));
+    var result = json.decode(response.body);
+    print(result);
+    if(result != 'failed'){
+      setState(() {
+        notice_image = result;
+      });
+    }else if(result == 'failed'){
+
     }
   }
 

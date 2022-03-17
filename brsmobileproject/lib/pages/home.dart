@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 // แสดงไอคอน Team5
                 show_bug_report_icon(),
                 Align(
-                  alignment: Alignment.centerLeft,
+                 
                   child: Column(
                     children: [
                       // แสดงข้อมูลผู้พัฒนาแอปพลิเคชัน
@@ -159,15 +159,15 @@ class _HomePageState extends State<HomePage> {
 
   Widget show_dev_detail(){
     return Padding(
-      padding: const EdgeInsets.only(left:15,bottom:5),
-      child: Text("${mem_firstname} ${mem_lastname}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'CSPraKas'), overflow: TextOverflow.ellipsis),
+      padding: const EdgeInsets.only(left:0,bottom:5),
+      child: Text("${mem_firstname} ${mem_lastname}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 18, fontFamily: 'CSPraKas')),
     );
   }
 
   Widget show_dev_email(){
     return Padding(
-      padding: const EdgeInsets.only(left:15,bottom:5),
-      child: Text("E-mail:${mem_email}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'CSPraKas'), overflow: TextOverflow.ellipsis),
+      padding: const EdgeInsets.only(left:0,bottom:5),
+      child: Text("E-mail:${mem_email}", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 14, fontFamily: 'CSPraKas')),
     );
   }
 
