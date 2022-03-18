@@ -254,7 +254,7 @@ class _NoticePageState extends State<NoticePage> {
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
     if(result == 'success'){
-      Navigator.pop(context);
+       Navigator.pop(context);
     }else if(result == 'failed'){
 
     }
