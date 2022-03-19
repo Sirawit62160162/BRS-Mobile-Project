@@ -1,8 +1,10 @@
 # BRS-Mobile-Project
 
-UX/UI Design: https://www.figma.com/file/JYrSJ2Jpw8cmBBQuJfV2Uj/Prototype_BRS?node-id=0%3A1
+ - UX/UI Design: https://www.figma.com/file/JYrSJ2Jpw8cmBBQuJfV2Uj/Prototype_BRS?node-id=0%3A1
 
-Software Design: https://drive.google.com/drive/u/1/folders/1tnAFqdgfHxxLM82KvweNwLARe3M2eU4-
+ - Software Design: https://drive.google.com/drive/u/1/folders/1tnAFqdgfHxxLM82KvweNwLARe3M2eU4-
+
+ - Version Control: https://github.com/Sirawit62160162/BRS-Mobile-Project
 
 วิธีการ Clone:
 1. สร้าง Folder 1 Folder
