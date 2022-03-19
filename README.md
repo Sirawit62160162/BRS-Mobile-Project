@@ -5,6 +5,8 @@
  - Software Design: https://drive.google.com/drive/u/1/folders/1tnAFqdgfHxxLM82KvweNwLARe3M2eU4-
 
  - Version Control: https://github.com/Sirawit62160162/BRS-Mobile-Project
+ 
+ - Generate Tokens: http://prepro.informatics.buu.ac.th/team5/generate_tokens/
 
 วิธีการ Clone:
 1. สร้าง Folder 1 Folder
