@@ -204,7 +204,8 @@ class _HomePageState extends State<HomePage> {
                   child: IconButton(
                     icon: Icon(Icons.delete), 
                     color: Colors.black,
-                    onPressed: () => set_delete_notice(notice_list[index]['no_id']),
+                    // onPressed: () => set_delete_notice(notice_list[index]['no_id']),
+                    onPressed: () => _showMyDialog(notice_list[index]['no_id']),
                   ), 
                 ),
                 Container(
@@ -277,7 +278,7 @@ class _HomePageState extends State<HomePage> {
     String id = mem_id;
 
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
-    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/get_notice.php');
+    var url = Uri.https('prepro.informatics.buu.ac.th', '/team5/mobile_query/get_notice.php');
     var data = {'id': id,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
@@ -289,7 +290,7 @@ class _HomePageState extends State<HomePage> {
 
   Future set_delete_notice(var no_id) async {
     // ร้องขอการเชื่อมต่อกับฐานข้อมูล
-    var url = Uri.https('informatics.buu.ac.th', '/team5/mobile_query/del_notice.php');
+    var url = Uri.https('prepro.informatics.buu.ac.th', '/team5/mobile_query/del_notice.php');
     var data = {'no_id': no_id, 'mem_id': mem_id, 'no_status_id': 3,'tokens' : 'ZSmrxIODdQ'};
     var response = await http.post(url, body: json.encode(data));
     var result = json.decode(response.body);
@@ -303,4 +304,41 @@ class _HomePageState extends State<HomePage> {
 
     }
   }
+
+  Future<void> _showMyDialog(var no_id) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('คุณต้องการจัดเก็บหรือไม่?' ,style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold, fontFamily: 'CSPraKas'),),
+          // content: SingleChildScrollView(
+          //   child: Column(
+          //     children: <Widget>[
+          //       // SizedBox(height: 20,),
+          //       // Text('คุณต้องการจัดเก็บหรือไม่?' ,style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold, fontFamily: 'CSPraKas'),),
+          //     ],
+          //   ),
+          // ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('ยืนยัน' ,style: TextStyle(fontSize: 15,color: Colors.white)),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 116, 109, 108))),
+              onPressed: () {
+                set_delete_notice(no_id);
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('ยกเลิก' ,style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 116, 109, 108),),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+
